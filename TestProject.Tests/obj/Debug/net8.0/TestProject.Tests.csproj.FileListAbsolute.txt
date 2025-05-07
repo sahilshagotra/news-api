@@ -302,3 +302,4 @@ C:\code\API\TestProject.Tests\obj\Debug\net8.0\refint\TestProject.Tests.dll
 C:\code\API\TestProject.Tests\obj\Debug\net8.0\TestProject.Tests.pdb
 C:\code\API\TestProject.Tests\obj\Debug\net8.0\TestProject.Tests.genruntimeconfig.cache
 C:\code\API\TestProject.Tests\obj\Debug\net8.0\ref\TestProject.Tests.dll
+C:\code\API\TestProject.Tests\obj\Debug\net8.0\TestProject.Tests.sourcelink.json

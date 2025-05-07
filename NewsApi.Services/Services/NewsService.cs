@@ -22,7 +22,19 @@ namespace NewsApi.Services.Services
             _appSettings = options.Value;
         }
 
-        public async Task<List<Story>> GetNewestStories(int start, int limit, string query)
+        /// <summary>
+        /// Fetches the newest stories from the Hacker News API.
+        /// </summary>
+        /// <param name="start">The page number of the results (1-based index).</param>
+        /// <param name="limit">The number of stories per page.</param>
+        /// <param name="query">An optional search query to filter stories by title.</param>
+        /// <returns>Returns a list of stories, or an empty list if no stories are found.</returns>
+        /// <remarks>
+        /// This method first checks the cache for a list of story IDs.
+        /// If the list is not in the cache, it fetches the story IDs from the News API and caches them.
+        /// Each individual story is also cached for later use.
+        /// </remarks>
+        public async Task<PagedResult<Story>> GetNewestStories(int start, int limit, string? query)
         {
             if (start < 1) start = 1;
             if (limit < 1) limit = 10;
@@ -32,13 +44,14 @@ namespace NewsApi.Services.Services
             var startIndex = (start - 1) * limit;
             var baseUrl = _appSettings.NewsBaseUrl;
 
+            //Fetch story ID'sfrom cache or API
             if (!_cache.TryGetValue("StoryIds", out List<int>? storyIds) || storyIds == null)
             {
                 var cacheresponse = await _httpClient.GetStringAsync($"{baseUrl}/newstories.json?print=pretty");
                 storyIds = JsonConvert.DeserializeObject<List<int>>(cacheresponse);
 
                 if (storyIds == null || storyIds.Count == 0)
-                    return new List<Story>();
+                    return new PagedResult<Story>(new List<Story>(), 0, start, limit);
 
                 _cache.Set("StoryIds", storyIds, new MemoryCacheEntryOptions
                 {
@@ -50,14 +63,9 @@ namespace NewsApi.Services.Services
 
             var allStories = new List<Story>();
 
-            //if (startIndex >= storyIds.Count)
-            //    return new List<Story>();
-
-            //var stories = new List<Story>();
-
             foreach (var storyId in storyIds)
             {
-                
+
                 if (!_cache.TryGetValue($"Story_{storyId}", out Story? cachedStory))
                 {
                     var storyResponse = await _httpClient.GetStringAsync($"{baseUrl}/item/{storyId}.json?print=pretty");
@@ -84,14 +92,16 @@ namespace NewsApi.Services.Services
                     }
                 }
             }
+            // Apply Search query if present
             if (!string.IsNullOrWhiteSpace(query))
-    {
-        allStories = allStories
-            .Where(s => s.Title != null && s.Title.Contains(query, StringComparison.OrdinalIgnoreCase))
-            .ToList();
-    }
-
-            return allStories.Skip((start-1)*limit).Take(limit).ToList();
+            {
+                allStories = allStories
+                    .Where(s => s.Title != null && s.Title.Contains(query, StringComparison.OrdinalIgnoreCase))
+                    .ToList();
+            }
+            //Pagination
+            var pagedStories = allStories.Skip((start - 1) * limit).Take(limit).ToList();
+            return new PagedResult<Story>(pagedStories, allStories.Count, start, limit);
         }
     }
 }

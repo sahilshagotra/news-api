@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("NewsApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+eb6862848a7144123a70d46f9d301af7f05e6953")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9ba4a9f346aeeb3b87f0407c7280134e476e8278")]
 [assembly: System.Reflection.AssemblyProductAttribute("NewsApi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("NewsApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

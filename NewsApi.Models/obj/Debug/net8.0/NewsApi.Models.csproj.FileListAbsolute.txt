@@ -20,3 +20,4 @@ C:\code\API\NewsApi.Models\obj\Debug\net8.0\NewsApi.Models.dll
 C:\code\API\NewsApi.Models\obj\Debug\net8.0\refint\NewsApi.Models.dll
 C:\code\API\NewsApi.Models\obj\Debug\net8.0\NewsApi.Models.pdb
 C:\code\API\NewsApi.Models\obj\Debug\net8.0\ref\NewsApi.Models.dll
+C:\code\API\NewsApi.Models\obj\Debug\net8.0\NewsApi.Models.sourcelink.json

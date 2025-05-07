@@ -28,3 +28,4 @@ C:\code\API\NewsApi.Services\obj\Debug\net8.0\NewsApi.Services.dll
 C:\code\API\NewsApi.Services\obj\Debug\net8.0\refint\NewsApi.Services.dll
 C:\code\API\NewsApi.Services\obj\Debug\net8.0\NewsApi.Services.pdb
 C:\code\API\NewsApi.Services\obj\Debug\net8.0\ref\NewsApi.Services.dll
+C:\code\API\NewsApi.Services\obj\Debug\net8.0\NewsApi.Services.sourcelink.json
